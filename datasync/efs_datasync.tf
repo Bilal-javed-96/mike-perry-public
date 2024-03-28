@@ -43,7 +43,7 @@ resource "aws_datasync_task" "example" {
 }
 resource "null_resource" "execute_datasync_task" {
   provisioner "local-exec" {
-    command     = "aws datasync start-task-execution --task-arn '${aws_datasync_task.example.arn}' --profile '${var.profile_name' --region '${var.region}' "
+    command     = "aws datasync start-task-execution --task-arn '${aws_datasync_task.example.arn}' --profile '${var.profile_name}' --region '${var.region}'"
     #interpreter = ["/bin/bash", "-c"]
   }
   depends_on = [ aws_datasync_task.example ]
