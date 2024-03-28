@@ -21,6 +21,10 @@ variable "sync_cron_expression"{
     default = "0/60 * * * ? *"
 }
 variable "dest_efs_arn" {
-    description = "ARN of Destination Filesystem"
+    description = "ARN of Destination Filesystem" 
+}
+variable "region" {
+}
+variable "profile_name" {
   
 }
