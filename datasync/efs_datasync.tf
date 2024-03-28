@@ -36,15 +36,16 @@ resource "aws_datasync_task" "example" {
   options {
     bytes_per_second = -1
   }
-  schedule {
-    schedule_expression = "cron(${var.sync_cron_expression})"
-  }
+  #schedule {
+  #  schedule_expression = "cron(${var.sync_cron_expression})"
+  #}
   depends_on = [aws_datasync_location_efs.destination]
 }
 resource "null_resource" "execute_datasync_task" {
   provisioner "local-exec" {
-    command     = "aws datasync start-task-execution --task-arn '${aws_datasync_task.example.arn}' --profile '${var.profile_name}' --region '${var.region}'"
+    command     = "aws datasync start-task-execution --task-arn '${aws_datasync_task.example.arn}' --region ${var.region} --profile ${var.profile_name}"
     #interpreter = ["/bin/bash", "-c"]
   }
   depends_on = [ aws_datasync_task.example ]
 }
+
