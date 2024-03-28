@@ -42,8 +42,10 @@ module "datasync" {
   source_subnet_id       =  var.sub_pub_b_id
   destination_subnet_id  =  var.sub_pub_b_id
   source_efs_sg_id       =  "arn:aws:ec2:${var.region}:990779155717:security-group/${var.source_efs-sg}"
-  destination_efs_sg_id  =  module.efs.efs_sg_id
+  destination_efs_sg_id  =  "arn:aws:ec2:${var.region}:990779155717:security-group/${module.efs.efs_sg_id}"
   dest_efs_arn           =  module.efs.efs_arn
+  region = var.region
+  profile_name = var.profile_name
   depends_on = [ module.efs]
 }
   
