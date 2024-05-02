@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('aws_access')
+        AWS_SECRET_ACCESS_KEY = credentials('aws_secret')
+    }
     stages {
         stage('Checkout Code') {
             steps {
@@ -13,9 +16,9 @@ pipeline {
             steps {
                 script {
                     // Configure AWS CLI with the provided profile
-                    sh "aws configure set aws_access_key_id ${aws_access} --profile ${aws_profile}"
-                    sh "aws configure set aws_secret_access_key ${aws_secret} --profile ${aws_profile}"
-                    sh "aws configure set region ca-central-1 --profile ${aws_profile}"
+                    sh "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile ${env.aws_profile}"
+                    sh "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile ${env.aws_profile}"
+                    sh "aws configure set region ca-central-1 --profile ${env.aws_profile}"
                     // You can set other configurations as well if needed
                 }
             }
