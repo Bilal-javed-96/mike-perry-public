@@ -24,7 +24,7 @@ pipeline {
             }
         }
         
-        stage('Terraform Deployment') {
+        stage('Terraform Plan') {
             steps {
                 script {
                     // CD into deployment folder and run terraform commands
@@ -32,6 +32,15 @@ pipeline {
                         sh '''
                             terraform init
                             terraform plan
+                        '''
+                    
+                }
+            }
+        }stage('Terraform Deployment') {
+            steps {
+                script {
+                    // CD into deployment folder and run terraform commands
+                         sh '''
                             terraform apply -auto-approve
                         '''
                     
